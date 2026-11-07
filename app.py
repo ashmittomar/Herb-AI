@@ -2,6 +2,7 @@ from pathlib import Path
 from uuid import uuid4
 import logging
 import re
+import os
 
 import pandas as pd
 from flask import Flask, render_template, request
@@ -16,8 +17,15 @@ app.config["SECRET_KEY"] = "change-this-development-key-before-deployment"
 logging.basicConfig(level=logging.INFO)
 
 BASE_DIR = Path(__file__).resolve().parent
+
 DATA_DIR = BASE_DIR / "dataset"
-UPLOAD_DIR = BASE_DIR / "uploads"
+
+# Use writable temporary storage on Vercel
+if os.environ.get("VERCEL"):
+    UPLOAD_DIR = Path("/tmp/herb_ai_uploads")
+else:
+    UPLOAD_DIR = BASE_DIR / "uploads"
+
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 ALLOWED_EXTENSIONS = {"pdf", "txt"}
 
