@@ -1,0 +1,26 @@
+plant_id,plant_common_name,compound_name,compound_class,plant_part_reported,verification_note
+MH003,Turmeric,Curcumin,Curcuminoid,Plant rhizome,Starter association; verify against a phytochemistry source
+MH001,Tulsi,Eugenol,Phenylpropanoid,Leaves,Starter association; verify against a phytochemistry source
+MH002,Neem,Azadirachtin,Limonoid,Seeds,Starter association; verify against a phytochemistry source
+MH004,Ashwagandha,Withaferin A,Withanolide,Leaves,Starter association; verify against a phytochemistry source
+MH006,Amla,Emblicanin A,Tannin,Fruit,Starter association; verify against a phytochemistry source
+MH007,Brahmi,Bacoside A,Saponin mixture,Aerial parts,Starter association; verify against a phytochemistry source
+MH009,Giloy,Tinosporaside,Glycoside,Stem,Starter association; verify against a phytochemistry source
+MH010,Arjuna,Arjunolic acid,Triterpenoid,Bark,Starter association; verify against a phytochemistry source
+MH011,Moringa,Quercetin,Flavonoid,Leaves,Starter association; verify against a phytochemistry source
+MH015,Manjistha,Alizarin,Anthraquinone,Root,Starter association; verify against a phytochemistry source
+MH017,Mulethi,Glycyrrhizin,Triterpenoid saponin,Root,Starter association; verify against a phytochemistry source
+MH025,Bael,Marmelosin,Coumarin,Fruit,Starter association; verify against a phytochemistry source
+MH035,Ginger,6-Gingerol,Phenolic compound,Rhizome,Starter association; verify against a phytochemistry source
+MH036,Garlic,Allicin,Organosulfur compound,Bulb,Starter association; verify against a phytochemistry source
+MH038,Cinnamon,Cinnamaldehyde,Aromatic aldehyde,Bark,Starter association; verify against a phytochemistry source
+MH039,Clove,Eugenol,Phenylpropanoid,Flower buds,Starter association; verify against a phytochemistry source
+MH040,Nutmeg,Myristicin,Phenylpropene,Seed,Starter association; verify against a phytochemistry source
+MH084,Black cumin,Thymoquinone,Quinone,Seeds,Starter association; verify against a phytochemistry source
+MH101,Ginkgo,Ginkgolides,Diterpene lactones,Leaves,Starter association; verify against a phytochemistry source
+MH102,Echinacea,Cichoric acid,Caffeic acid derivative,Aerial parts,Starter association; verify against a phytochemistry source
+MH103,St John's wort,Hyperforin,Phloroglucinol derivative,Aerial parts,Starter association; verify against a phytochemistry source
+MH105,Chamomile,Apigenin,Flavonoid,Flower heads,Starter association; verify against a phytochemistry source
+MH106,Peppermint,Menthol,Monoterpene alcohol,Leaves,Starter association; verify against a phytochemistry source
+MH107,Lavender,Linalool,Monoterpene alcohol,Flowers,Starter association; verify against a phytochemistry source
+MH112,Tea plant,EGCG,Catechin,Leaves,Starter association; verify against a phytochemistry source

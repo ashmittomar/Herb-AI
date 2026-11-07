@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block title %}Plant Explorer | Herb-AI{% endblock %}
+
+{% block content %}
+
+<main>
+
+    <section class="explorer-hero">
+        <div class="explorer-hero-content">
+            <span class="section-tag">MEDICINAL PLANT DATABASE</span>
+
+            <h1>Explore <span>Medicinal Plants</span></h1>
+
+            <p>
+                Discover medicinal plants, their botanical information,
+                traditional uses and known compounds.
+            </p>
+        </div>
+    </section>
+
+    <section class="explorer-search">
+
+        <div class="section-heading">
+            <h2>Find a Medicinal Plant</h2>
+            <p>
+                Search using common name, scientific name,
+                Hindi name or traditional uses.
+            </p>
+        </div>
+
+        <form method="GET" action="{{ url_for('plant_explorer') }}" class="search-form">
+
+            <input type="search" name="q" placeholder="Search medicinal plants..." value="{{ query }}"
+                aria-label="Search medicinal plants">
+
+            <button type="submit" class="btn-primary">
+                <i class="fas fa-search"></i>
+                Search Plants
+            </button>
+
+            {% if query %}
+            <a href="{{ url_for('plant_explorer') }}" class="clear-search">
+                Clear Search
+            </a>
+            {% endif %}
+
+        </form>
+
+    </section>
+
+    <section class="explorer-results" id="plant-results">
+
+        <div class="section-heading">
+            <span class="section-tag">PLANT COLLECTION</span>
+
+            <h2>
+                {% if query %}
+                Search Results for "{{ query }}"
+                {% else %}
+                Available Medicinal Plants
+                {% endif %}
+            </h2>
+
+            <p>
+                Showing {{ plants|length }} plant records.
+            </p>
+        </div>
+
+        {% if plants %}
+
+        <div class="plant-grid">
+
+            {% for plant in plants %}
+
+            <article class="plant-card">
+
+                <div class="plant-card-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+
+                <h3>
+                    {{ plant.get('common_name') or 'Unknown Plant' }}
+                </h3>
+
+                <p class="scientific-name">
+                    {{ plant.get('scientific_name') or 'Scientific name unavailable' }}
+                </p>
+
+                <div class="plant-details">
+
+                    <p>
+                        <strong>Family:</strong>
+                        {{ plant.get('botanical_family') or 'Not available' }}
+                    </p>
+
+                    <p>
+                        <strong>Hindi Name:</strong>
+                        {{ plant.get('hindi_name') or 'Not available' }}
+                    </p>
+
+                    <p>
+                        <strong>Sanskrit Name:</strong>
+                        {{ plant.get('sanskrit_name') or 'Not available' }}
+                    </p>
+
+                    <p>
+                        <strong>Parts Used:</strong>
+                        {{ plant.get('plant_parts_used') or 'Not available' }}
+                    </p>
+
+                    <p>
+                        <strong>Known Compounds:</strong>
+                        {{ plant.get('known_compounds') or 'Not available' }}
+                    </p>
+
+                </div>
+
+                <div class="traditional-uses">
+                    <h4>Traditional Uses</h4>
+
+                    <p>
+                        {{ plant.get('traditional_uses') or 'Information not available in the dataset.' }}
+                    </p>
+                </div>
+
+            </article>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-state">
+            <i class="fas fa-search"></i>
+            <h3>No Plants Found</h3>
+            <p>
+                Try another plant name or keyword.
+            </p>
+        </div>
+
+        {% endif %}
+
+    </section>
+
+</main>
+
+{% endblock %}

@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}Analytics Dashboard | Herb-AI{% endblock %}
+
+{% block head %}
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<main>
+
+    <section class="page-hero">
+        <span class="eyebrow">DATA OVERVIEW</span>
+
+        <h1>
+            Herbal Knowledge
+            <em>Analytics</em>
+        </h1>
+
+        <p>
+            A clear overview of the medicinal plant, compound
+            and research datasets currently loaded in Herb-AI.
+        </p>
+    </section>
+
+    <section class="section">
+
+        <div class="section-heading">
+            <span class="eyebrow">DATASET SNAPSHOT</span>
+            <h2>Your Knowledge Collection</h2>
+            <p>
+                A summary of the records available to the platform.
+            </p>
+        </div>
+
+        <div class="stats">
+
+            <div class="stat-card">
+                <strong>{{ plant_count }}</strong>
+                <span>Plant Records</span>
+            </div>
+
+            <div class="stat-card">
+                <strong>{{ compound_count }}</strong>
+                <span>Compound Records</span>
+            </div>
+
+            <div class="stat-card">
+                <strong>{{ research_count }}</strong>
+                <span>Research Records</span>
+            </div>
+
+        </div>
+
+        <div class="chart-grid">
+
+            <article class="chart-card">
+
+                <h3>Plant Coverage Distribution</h3>
+
+                <p class="chart-description">
+                    How plant records are distributed across coverage groups.
+                </p>
+
+                <div id="coverageChart" class="chart"></div>
+
+            </article>
+
+            <article class="chart-card">
+
+                <h3>Most Recorded Compounds</h3>
+
+                <p class="chart-description">
+                    Top compounds by number of dataset records.
+                </p>
+
+                <div id="compoundChart" class="chart"></div>
+
+            </article>
+
+        </div>
+
+        <div class="notice">
+            <strong>How to Interpret These Charts</strong>
+            <p>
+                These visualizations summarize the records in the supplied
+                CSV files. They do not measure medicinal effectiveness,
+                clinical evidence quality or treatment outcomes.
+            </p>
+        </div>
+
+    </section>
+
+</main>
+
+<script id="analytics-data" type="application/json">
+{{ {
+    'coverage_labels': coverage_labels,
+    'coverage_values': coverage_values,
+    'compound_labels': compound_labels,
+    'compound_values': compound_values
+}|tojson }}
+</script>
+
+{% endblock %}

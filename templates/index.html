@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+{% block title %}Herb-AI | Traditional Herbal Knowledge{% endblock %}
+
+{% block content %}
+
+<main>
+
+    <!-- Hero Section -->
+
+    <section class="home-hero">
+
+        <div class="hero-content">
+
+            <span class="eyebrow">
+                TRADITIONAL WISDOM · MODERN DISCOVERY
+            </span>
+
+            <h1>
+                Bridging Traditional Herbal Knowledge
+                <em>with Modern Science</em>
+            </h1>
+
+            <p>
+                Explore medicinal plants and analyze traditional
+                ethnobotanical knowledge through an intelligent
+                research platform.
+            </p>
+
+            <div class="hero-actions">
+
+                <a href="{{ url_for('plant_explorer') }}" class="btn">
+                    Explore Plants
+                </a>
+
+                <a href="{{ url_for('traditional_knowledge') }}" class="btn btn-outline">
+                    Try Knowledge AI
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="hero-visual">
+
+            <div class="hero-circle">
+                <span>🌿</span>
+            </div>
+
+            <div class="floating-card card-one">
+                Medicinal Plants
+            </div>
+
+            <div class="floating-card card-two">
+                Traditional Knowledge
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- Main Features -->
+
+    <section class="section">
+
+        <div class="section-heading">
+
+            <span class="eyebrow">EXPLORE HERB-AI</span>
+
+            <h2>Discover the Platform</h2>
+
+            <p>
+                Explore medicinal plants and extract structured
+                information from traditional knowledge documents.
+            </p>
+
+        </div>
+
+
+        <div class="feature-grid feature-grid-two">
+
+            <article class="feature-card">
+
+                <span class="feature-icon">🌱</span>
+
+                <h3>Plant Explorer</h3>
+
+                <p>
+                    Explore medicinal plants, botanical information,
+                    traditional uses, known compounds and available
+                    plant records.
+                </p>
+
+                <a href="{{ url_for('plant_explorer') }}">
+                    Explore Plants →
+                </a>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <span class="feature-icon">📜</span>
+
+                <h3>Traditional Knowledge AI</h3>
+
+                <p>
+                    Upload ethnobotanical PDF or TXT documents
+                    to identify plant mentions, plant parts,
+                    preparation methods and candidate traditional uses.
+                </p>
+
+                <a href="{{ url_for('traditional_knowledge') }}">
+                    Analyze Documents →
+                </a>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- Highlight Section -->
+
+    <section class="section highlight-section">
+
+        <div>
+
+            <span class="eyebrow">
+                TRADITIONAL KNOWLEDGE AI
+            </span>
+
+            <h2>
+                Turn Ethnobotanical Documents
+                into Structured Information
+            </h2>
+
+            <p>
+                Upload documents to identify medicinal plant names,
+                plant parts, preparation methods and traditional-use
+                candidate phrases.
+            </p>
+
+            <a href="{{ url_for('traditional_knowledge') }}" class="btn">
+                Start Document Analysis
+            </a>
+
+        </div>
+
+        <div class="highlight-icon">🌿</div>
+
+    </section>
+
+</main>
+
+{% endblock %}

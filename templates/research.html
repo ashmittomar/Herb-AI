@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block title %}Research Library | Herb-AI{% endblock %}
+
+{% block content %}
+
+<main>
+
+    <section class="page-hero">
+        <span class="eyebrow">SCIENTIFIC LITERATURE</span>
+
+        <h1>Research <em>Library</em></h1>
+
+        <p>
+            Explore research records associated with medicinal
+            plants and natural products.
+        </p>
+    </section>
+
+    <section class="section">
+
+        <form class="search-form" method="GET" action="{{ url_for('research') }}">
+
+            <input type="search" name="q" value="{{ query }}" placeholder="Search by plant, title, author or summary..."
+                aria-label="Search research records">
+
+            <button class="btn-primary" type="submit">
+                <i class="fas fa-search"></i>
+                Search Research
+            </button>
+
+            {% if query %}
+            <a class="btn-outline" href="{{ url_for('research') }}">
+                Clear
+            </a>
+            {% endif %}
+
+        </form>
+
+    </section>
+
+    <section class="section section-top" id="research-results">
+
+        <div class="section-heading">
+            <span class="eyebrow">LITERATURE RECORDS</span>
+
+            <h2>
+                {% if query %}
+                Results for "{{ query }}"
+                {% else %}
+                Research Records
+                {% endif %}
+            </h2>
+
+            <p>{{ research_records|length }} records displayed</p>
+        </div>
+
+        {% if research_records %}
+
+        <div class="research-list">
+
+            {% for item in research_records %}
+
+            {% set plant_name =
+            item.get('scientific_name')
+            or item.get('plant_common_name')
+            or query
+            or 'medicinal plants'
+            %}
+
+            {% set pubmed_url =
+            'https://pubmed.ncbi.nlm.nih.gov/?term='
+            ~ (plant_name|urlencode)
+            %}
+
+            <article class="research-card">
+
+                <div class="section-row">
+
+                    <h3>
+                        {{ item.get('publication_title')
+                        or ('Research search: ' ~ plant_name) }}
+                    </h3>
+
+                    <span class="count-pill">
+                        {{ item.get('record_status') or 'Status unspecified' }}
+                    </span>
+
+                </div>
+
+                <p>
+                    <strong>Plant:</strong>
+                    {{ item.get('plant_common_name') or plant_name }}
+
+                    {% if item.get('scientific_name') %}
+                    ({{ item.get('scientific_name') }})
+                    {% endif %}
+                </p>
+
+                {% if item.get('authors') %}
+                <p>
+                    <strong>Authors:</strong>
+                    {{ item.get('authors') }}
+                </p>
+                {% endif %}
+
+                {% if item.get('publication_year') %}
+                <p>
+                    <strong>Year:</strong>
+                    {{ item.get('publication_year') }}
+                </p>
+                {% endif %}
+
+                {% if item.get('evidence_type') %}
+                <p>
+                    <strong>Evidence Type:</strong>
+                    {{ item.get('evidence_type') }}
+                </p>
+                {% endif %}
+
+                {% if item.get('study_summary') %}
+                <p>{{ item.get('study_summary') }}</p>
+                {% endif %}
+
+                <a class="text-link" href="{{ pubmed_url }}" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-external-link-alt"></i>
+                    Search PubMed for {{ plant_name }}
+                </a>
+
+            </article>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-state">
+            <span>📚</span>
+            <h3>No Research Records Found</h3>
+            <p>
+                Try another search or check the research_papers.csv dataset.
+            </p>
+        </div>
+
+        {% endif %}
+
+        <div class="notice">
+            <strong>Dataset Limitation</strong>
+            <p>
+                Dataset records and external literature searches are
+                different things. A PubMed link opens a search for the
+                plant; it does not mean that every displayed dataset
+                record is a verified scientific publication.
+            </p>
+        </div>
+
+    </section>
+
+</main>
+
+{% endblock %}

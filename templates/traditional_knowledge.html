@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+
+{% block title %}Traditional Knowledge AI | Herb-AI{% endblock %}
+
+{% block content %}
+
+<main>
+
+    <section class="page-hero">
+        <span class="eyebrow">NLP-POWERED DOCUMENT EXPLORATION</span>
+
+        <h1>Traditional Knowledge <em>AI</em></h1>
+
+        <p>
+            Upload ethnobotanical documents to identify medicinal
+            plant mentions and candidate traditional-use information.
+        </p>
+    </section>
+
+    <section class="section">
+
+        <div class="upload-panel">
+
+            <div class="section-heading">
+                <span class="eyebrow">DOCUMENT ANALYSIS</span>
+                <h2>Upload a Document</h2>
+
+                <p>
+                    Supported formats: PDF and TXT.
+                    Maximum file size: 10 MB.
+                </p>
+            </div>
+
+            {% if error %}
+            <div class="alert">{{ error }}</div>
+            {% endif %}
+
+            <form id="uploadForm" class="upload-form" method="POST" enctype="multipart/form-data">
+
+                <label class="file-label" for="document">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    Choose PDF or TXT file
+
+                    <input id="document" type="file" name="document" accept=".pdf,.txt,application/pdf,text/plain"
+                        required>
+                </label>
+
+                <p id="fileName" class="file-name">
+                    No file selected
+                </p>
+
+                <button id="uploadButton" class="btn-primary" type="submit">
+                    <i class="fas fa-microscope"></i>
+                    Analyze Document
+                </button>
+
+            </form>
+
+            <p class="small-note">
+                Text-based PDFs are supported. Scanned PDFs may require
+                OCR and may return little or no text.
+            </p>
+
+        </div>
+
+    </section>
+
+    {% if result %}
+
+    <section class="section section-top" id="results">
+
+        <div class="section-heading">
+            <span class="eyebrow">ANALYSIS OUTPUT</span>
+            <h2>Document Analysis Results</h2>
+            <p>{{ result.document_name }}</p>
+        </div>
+
+        <div class="stats">
+
+            <div class="stat-card">
+                <strong>{{ result.total_pages }}</strong>
+                <span>Pages</span>
+            </div>
+
+            <div class="stat-card">
+                <strong>{{ result.total_characters }}</strong>
+                <span>Characters Extracted</span>
+            </div>
+
+            <div class="stat-card">
+                <strong>{{ result.plants|length }}</strong>
+                <span>Plants Recognized</span>
+            </div>
+
+            <div class="stat-card">
+                <strong>{{ result.knowledge_records|length }}</strong>
+                <span>Candidate Records</span>
+            </div>
+
+        </div>
+
+        <h3 class="subheading">Recognized Plants</h3>
+
+        {% if result.plants %}
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Plant</th>
+                        <th>Mentions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for plant in result.plants %}
+                    <tr>
+                        <td>{{ plant.get('name', 'Unknown') }}</td>
+                        <td>{{ plant.get('mentions', 0) }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% else %}
+
+        <div class="empty-state">
+            <h3>No Known Plant Names Detected</h3>
+            <p>
+                Try a document containing plant names
+                present in the medicinal plants dataset.
+            </p>
+        </div>
+
+        {% endif %}
+
+        <h3 class="subheading">Traditional Knowledge Candidates</h3>
+
+        {% if result.knowledge_records %}
+
+        <div class="research-list">
+
+            {% for item in result.knowledge_records %}
+
+            <article class="research-card">
+
+                <h3>{{ item.get('plant', 'Plant') }}</h3>
+
+                <p>
+                    <strong>Plant Parts:</strong>
+                    {{ item.get('plant_parts', 'Not identified') }}
+                </p>
+
+                <p>
+                    <strong>Preparation:</strong>
+                    {{ item.get('preparations', 'Not identified') }}
+                </p>
+
+                <p>
+                    <strong>Candidate Use Phrase:</strong>
+                    {{ item.get('traditional_use_candidates', 'Not identified') }}
+                </p>
+
+                <blockquote>
+                    {{ item.get('sentence', '') }}
+                </blockquote>
+
+                <span class="tag-warning">
+                    {{ item.get('review_status', 'Requires human verification') }}
+                </span>
+
+            </article>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <p class="muted">
+            No sentences matched the current extraction patterns.
+        </p>
+
+        {% endif %}
+
+        <div class="notice">
+            <strong>Extraction Limitations</strong>
+            <p>
+                These are text-matching candidates, not validated
+                medical claims. Review the original source and verify
+                each record. The current version uses dictionary
+                matching and phrase patterns; it does not use a
+                domain-trained transformer model or OCR.
+            </p>
+        </div>
+
+    </section>
+
+    {% endif %}
+
+</main>
+
+{% endblock %}

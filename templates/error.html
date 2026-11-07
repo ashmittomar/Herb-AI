@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Error | Herb-AI{% endblock %}
+
+{% block content %}
+
+<main class="section error-page">
+
+    <span class="eyebrow">HERB-AI</span>
+
+    <h1>{{ error_code }}</h1>
+
+    <h2>Something Needs Attention</h2>
+
+    <p>{{ error_message }}</p>
+
+    <a href="{{ url_for('home') }}" class="btn">
+        Return Home
+    </a>
+
+</main>
+
+{% endblock %}
